@@ -1,0 +1,61 @@
+{
+  "name": "jasmintv",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=6.5",
+    "npm": ">=3.10"
+  },
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "initialize": "yarn run clean && yarn install && react-native link && cd ./ios && pod install && cd ..",
+    "bundle": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --sourcemap-output android/app/src/main/assets/index.android.map --assets-dest android/app/src/main/res/",
+    "connect-adb": "adb kill-server && adb start-server && adb connect 10.0.70.250",
+    "build-android-debug": "(cd android/ && ./gradlew assembleDebug) && npm run bundle",
+    "build-android-release": "rm -f jasmintv_V1.7 && cd ./android && ./gradlew assembleRelease && cp ./app/build/outputs/apk/app-release.apk ../jasmintv_V1.7.apk && cd .. && echo 'DONE!'",
+    "log": "react-native log-android",
+    "test": "jest",
+    "quick-clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && npm cache clean && cd android && ./gradlew clean && cd ..",
+    "clean": "yarn run quick-clean && rm -rf node_modules && rm -rf ./ios/build"
+  },
+  "dependencies": {
+    "crypto-js": "3.1.8",
+    "mobx": "2.7.0",
+    "mobx-react": "4.1.0",
+    "react": "~15.4.0-rc.4",
+    "react-native": "0.39.2",
+    "react-native-device-info": "0.9.7",
+    "react-native-extended-stylesheet": "0.3.0",
+    "react-native-fs": "2.0.1-rc.2",
+    "react-native-google-analytics-bridge": "4.0.3",
+    "react-native-google-cast": "1.2.0",
+    "react-native-keep-awake": "1.0.7",
+    "react-native-keyevent": "0.0.4",
+    "react-native-orientation": "git+https://github.com/yamill/react-native-orientation",
+    "react-native-splash-screen": "1.0.9",
+    "react-native-vector-icons": "3.0.0",
+    "react-native-video": "0.9.0",
+    "react-native-windows": "^0.39.1",
+    "react-router": "4.0.0-alpha.6",
+    "render-if": "0.1.1",
+    "url-parse": "1.1.7"
+  },
+  "devDependencies": {
+    "babel-jest": "18.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "jest": "18.1.0",
+    "rnpm-plugin-windows": "^0.2.3",
+    "babel-preset-react-native-stage-0": "1.0.1",
+    "enzyme": "2.7.0",
+    "eslint": "3.12.0",
+    "eslint-plugin-jsx-a11y": "3.0.2",
+    "eslint-plugin-react": "6.6.0",
+    "eslint-plugin-react-native": "2.0.0",
+    "react-test-renderer": "~15.4.0-rc.4",
+    "rnpm-plugin-windows": "^0.2.3"
+  },
+  "jest": {
+    "preset": "jest-react-native"
+  }
+}
+
